@@ -9,7 +9,7 @@ export default function TreeViewer({ data }: any) {
       <div
         id="treeWrapper"
         style={{
-          width: "50em",
+          width: "100%",
           height: "100vh",
           backgroundColor: "white",
         }}
