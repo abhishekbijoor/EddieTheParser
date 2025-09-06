@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import Tree from "react-d3-tree";
 export default function TreeViewer({ data }: any) {
   console.log(`Tree Viewer data ${JSON.stringify(data)}`);

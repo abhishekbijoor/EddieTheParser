@@ -1,23 +1,27 @@
 "use client";
-import { TreeGenerator } from "@/ParsingLogic/TreeGenerator";
-import Editor, { DiffEditor, useMonaco, loader } from "@monaco-editor/react";
-import { RefObject, useRef, useState } from "react";
+import { TreeGenerator, TreeNode } from "@/ParsingLogic/TreeGenerator";
+import Editor from "@monaco-editor/react";
+import { useRef, useState } from "react";
 import TreeViewer from "./TreeViewer/TreeView";
+import type * as monacoEditor from "monaco-editor";
 //have not handled any lint issues for now will update it while adding more functionalities
 export default function Home() {
-  const editorRef = useRef(null);
+  const editorRef = useRef<monacoEditor.editor.IStandaloneCodeEditor>(null);
 
-  const handleEditorMount = (editor: any, monaco: any) => {
+  const handleEditorMount = (
+    editor: monacoEditor.editor.IStandaloneCodeEditor,
+    monaco: typeof monacoEditor
+  ) => {
     editorRef.current = editor;
     monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
       jsx: monaco.languages.typescript.JsxEmit.React,
     });
   };
-  const [tree, setTree] = useState<any>(null);
+  const [tree, setTree] = useState<TreeNode | null>(null);
 
   const handleGenerate = () => {
     if (!editorRef.current) return;
-    const code = (editorRef.current as any).getValue();
+    const code = editorRef.current.getValue();
     const newTree = TreeGenerator(code);
     setTree(newTree);
   };
