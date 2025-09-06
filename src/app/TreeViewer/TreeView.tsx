@@ -1,6 +1,19 @@
+import { TreeNode } from "@/ParsingLogic/TreeGenerator";
 import React from "react";
-import Tree from "react-d3-tree";
-export default function TreeViewer({ data }: any) {
+import Tree, { RawNodeDatum } from "react-d3-tree";
+interface DataTreeNode {
+  data: TreeNode | null;
+}
+
+// Helper to convert your TreeNode into react-d3-tree format
+function toD3Tree(node: TreeNode): RawNodeDatum {
+  return {
+    name: node.name ?? "Unknown",
+    children: node.children?.map(toD3Tree) || [],
+  };
+}
+
+export default function TreeViewer({ data }: DataTreeNode) {
   console.log(`Tree Viewer data ${JSON.stringify(data)}`);
   if (!data) return <div>No node found</div>;
   return (
@@ -14,7 +27,7 @@ export default function TreeViewer({ data }: any) {
           backgroundColor: "white",
         }}
       >
-        <Tree data={data} />
+        <Tree data={toD3Tree(data)} />
       </div>
     </div>
   );

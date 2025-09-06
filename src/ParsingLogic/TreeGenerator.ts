@@ -1,6 +1,7 @@
 import * as parser from "@babel/parser";
 import traverse from "@babel/traverse";
 import * as types from "@babel/types";
+import generate from "@babel/generator";
 
 export interface TreeNode {
   type: "element" | "text" | "expression";
@@ -57,7 +58,7 @@ export const jsxToTreee = (node: types.Node): TreeNode | null => {
   } else if (types.isJSXExpressionContainer(node)) {
     return {
       type: "expression",
-      name: (node.expression as any)!.value,
+      name: generate(node.expression).code,
       children: [],
     };
   }
