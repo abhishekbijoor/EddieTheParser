@@ -1,7 +1,6 @@
 import * as parser from "@babel/parser";
 import traverse from "@babel/traverse";
 import * as types from "@babel/types";
-import { Children } from "react";
 
 export const TreeGenerator = (code: string) => {
   try {

@@ -27,7 +27,7 @@ export default function Home() {
       <div style={{ display: "flex" }}>
         <div style={{ width: "50%" }}>
           <Editor
-            // height="100vh"
+            height="100vh"
             defaultLanguage="typescript"
             defaultValue="() => { return <div>Hello</div>; }"
             onMount={handleEditorMount}
